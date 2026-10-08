@@ -1,0 +1,15 @@
+# Executabile Go
+/cmd/api/api
+/cmd/worker/worker
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Stocare locală de imagini (pentru teste)
+/uploads/
+/storage/
+
+# Fișiere de mediu / secrete
+.env
