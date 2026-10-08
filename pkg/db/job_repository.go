@@ -25,7 +25,7 @@ func (r *JobRepository) CreateJob(ctx context.Context, job *models.Job) error {
 		job.ID = bson.NewObjectID().Hex()
 	}
 	job.CreatedAt = time.Now()
-	job.Status = "Pending"
+	job.Status = "pending"
 
 	coll := r.db.Collection("jobs")
 

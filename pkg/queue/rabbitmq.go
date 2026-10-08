@@ -39,7 +39,7 @@ func NewRabbitMQ(amqpURL string) (*RabbitMQ, error) {
 		return nil, fmt.Errorf("can't declare queue: %w", err)
 	}
 
-	log.Println("API is connected to RabbitMQ!")
+	fmt.Println("[debug] connection to RabbitMQ established")
 
 	return &RabbitMQ{
 		Conn:    conn,
