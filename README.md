@@ -2,6 +2,10 @@
 
 A decoupled, event-driven image processing service written in Go, using MongoDB for status tracking, RabbitMQ for asynchronous workload dispatch and Go's image manipulation.
 
+## Getting Started
+
+For local setup instructions, Docker initialization, and testing guides, see [GETTING_STARTED.md](./GETTING_STARTED.md).
+
 ## Architecture & Design Decisions
 
 `imgpipe` decouples the HTTP ingestion API from CPU-bound image transformations using a producer-consumer pattern.
