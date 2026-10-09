@@ -6,6 +6,20 @@ A decoupled, event-driven image processing service written in Go, using MongoDB 
 
 For local setup instructions, Docker initialization, and testing guides, see [SETUP.md](./SETUP.md). **(IN PROGRESS)**
 
+
+## Roadmap
+```
+Current State (Stage 1)         Stage 2: Local Kubernetes           Stage 3: Cloud Primitives (AWS emulation)
+┌───────────────────────┐       ┌─────────────────────────────┐     ┌─────────────────────────────────────────┐
+│                       │       │ KUBERNETES CLUSTER (Kind)   │     │ KUBERNETES CLUSTER                      │
+│  [ API ]   [ Worker ] │       │                             │     │                                         │
+│     │          │      │       │  [ API Pods ] [Worker Pods] │     │  [ API Pods ]      [ Worker Pods ]      │
+│  [RabbitMQ] [Mongo]   │  ──►  │       │             │       │ ──► │       │                   │             │
+│                       │       │  [ RabbitMQ ]   [ Mongo ]   │     │  [ SQS Queue ]    [ S3 Buckets ]        │
+│  (Docker Compose)     │       │                             │     │     (AWS)               (AWS)           │
+└───────────────────────┘       └─────────────────────────────┘     └─────────────────────────────────────────┘
+```
+
 ## Architecture & Design Decisions
 
 `imgpipe` decouples the HTTP ingestion API from CPU-bound image transformations using a producer-consumer pattern.
