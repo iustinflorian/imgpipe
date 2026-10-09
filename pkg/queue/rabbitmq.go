@@ -73,3 +73,29 @@ func (r *RabbitMQ) PublishJob(ctx context.Context, job *models.Job) error {
 	log.Printf("Job %s successfully sent to RabbitMQ!", job.ID)
 	return nil
 }
+
+func (r *RabbitMQ) ConsumeJobs() (<-chan amqp.Delivery, error) {
+	err := r.Channel.Qos(
+		1,
+		0,
+		false,
+	)
+	if err != nil {
+		return nil, fmt.Errorf("failed to set Qos prefetch count: %w", err)
+	}
+
+	msgs, err := r.Channel.Consume(
+		r.Queue.Name,
+		"",
+		false,
+		false,
+		false,
+		false,
+		nil,
+	)
+	if err != nil {
+		return nil, fmt.Errorf("failed to register consumer: %w", err)
+	}
+
+	return msgs, nil
+}
