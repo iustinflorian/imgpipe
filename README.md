@@ -4,7 +4,7 @@ A decoupled, event-driven image processing service written in Go, using MongoDB 
 
 ## Getting Started
 
-For local setup instructions, Docker initialization, and testing guides, see [SETUP.md](./SETUP.md).
+For local setup instructions, Docker initialization, and testing guides, see [SETUP.md](./SETUP.md). **(IN PROGRESS)**
 
 ## Architecture & Design Decisions
 
