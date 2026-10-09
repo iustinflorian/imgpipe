@@ -5,13 +5,21 @@ import (
 	"imgpipe/pkg/queue"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
-	mongoURI := "mongodb://localhost:27017"
-	dbName := "imgpipe"
+	mongoURI := os.Getenv("MONGO_URI")
+	if mongoURI == "" {
+		mongoURI = "mongodb://localhost:27017" // Fallback for local `go run` execution
+	}
 
-	database, err := db.ConnectMongo(mongoURI, dbName)
+	rabbitURI := os.Getenv("RABBITMQ_URI")
+	if rabbitURI == "" {
+		rabbitURI = "amqp://guest:guest@localhost:5672/" // Fallback for local `go run` execution
+	}
+
+	database, err := db.ConnectMongo(mongoURI, "imgpipe")
 	if err != nil {
 		log.Fatalf("error connecting to MongoDB: %v", err)
 	}
@@ -19,7 +27,6 @@ func main() {
 	repo := db.NewJobRepository(database)
 	log.Println("Connection with MongoDB established!")
 
-	rabbitURI := "amqp://guest:guest@localhost:5672/"
 	mq, err := queue.NewRabbitMQ(rabbitURI)
 	if err != nil {
 		log.Fatalf("error connecting to RabbitMQ: %v", err)
